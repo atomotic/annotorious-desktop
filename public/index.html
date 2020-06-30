@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>annotorius.app</title>
+    <script src="js/openseadragon.min.js"></script>
+    <script src="js/openseadragon-annotorious.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="form">
+      <input
+        type="text"
+        size="80"
+        name="manifest"
+        id="manifest"
+        value="https://iiif.edl.beniculturali.it/10965/manifest"
+      />
+      <input type="submit" id="load" value="open IIIF manifest" />
+      <span id="loader"><img src="loading.gif" /></span>
+    </div>
+
+    <div id="browser"></div>
+    <div id="viewer" style="width: calc(100vw-20px); height: 80vh;"></div>
+    <script>
+      var osd = OpenSeadragon({
+        id: "viewer",
+        tileSources: [],
+      });
+
+      var anno = OpenSeadragon.Annotorious(osd);
+
+      osd.addHandler("open", function () {
+        try {
+          get(osd.source["@id"]).then(function (res) {
+            annotations = JSON.parse(res);
+            anno.setAnnotations(annotations);
+          });
+        } catch (err) {
+          console.log(err);
+        }
+      });
+
+      anno.on("createAnnotation", function (annotation) {
+        save(
+          annotation.id,
+          document.getElementById("manifest").value,
+          osd.source["@id"],
+          JSON.stringify(annotation)
+        ).then(function (res) {
+          console.log(`saved ${annotation.id}`);
+        });
+      });
+
+      anno.on("updateAnnotation", function (annotation, previous) {
+        update(annotation.id, JSON.stringify(annotation)).then(function (res) {
+          console.log(`updated ${annotation.id}`);
+        });
+      });
+
+      anno.on("deleteAnnotation", function (annotation) {
+        del(annotation.id).then(function (res) {
+          console.log(`delete ${annotation.id}`);
+        });
+      });
+
+      function loadCanvas(page) {
+        osd.open(page.dataset.canvas);
+      }
+
+      document.getElementById("load").addEventListener("click", function (evt) {
+        document.getElementById("browser").textContent = "";
+        document.getElementById("loader").style.display = "inline";
+        evt.preventDefault();
+        var manifest = document.getElementById("manifest").value;
+        fetch(manifest)
+          .then((response) => response.json())
+          .then((data) => {
+            for (const canvas of data.sequences[0].canvases) {
+              var id = canvas.images[0].resource.service["@id"];
+              var thumbnail = document.createElement("img");
+              thumbnail.classList.add("thumb");
+              thumbnail.setAttribute("src", `${id}/full/,90/0/default.jpg`);
+              thumbnail.setAttribute("data-canvas", `${id}/info.json`);
+              thumbnail.setAttribute("onclick", "loadCanvas(this)");
+              document.getElementById("browser").appendChild(thumbnail);
+              document.getElementById("loader").style.display = "none";
+            }
+          });
+      });
+    </script>
+  </body>
+</html>
