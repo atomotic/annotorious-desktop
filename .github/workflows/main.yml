@@ -10,18 +10,18 @@ name: build and release
 jobs:
   build:
     name: build and release
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v2
       - name: Go
         uses: actions/setup-go@v2
       - name: Node
         uses: actions/setup-node@v1
-      - name: Download js
+      - name: Build
         run: ./build.sh
-      - name: Build project
-        run: go build
+      # - name: Build project
+      #   run: go build
       # - name: Create Release
       #   id: create_release
       #   uses: actions/create-release@v1
