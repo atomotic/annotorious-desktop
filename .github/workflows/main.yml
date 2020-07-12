@@ -1,0 +1,44 @@
+on: push
+
+# on:
+#   push:
+#     tags:
+#       - "v*"
+
+name: build and release
+
+jobs:
+  build:
+    name: build and release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Go
+        uses: actions/setup-go@v2
+      - name: Node
+        uses: actions/setup-node@v1
+      - name: Download js
+        run: ./build.sh
+      - name: Build project
+        run: go build
+      # - name: Create Release
+      #   id: create_release
+      #   uses: actions/create-release@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: ${{ github.ref }}
+      #     release_name: Release ${{ github.ref }}
+      #     draft: false
+      #     prerelease: false
+      # - name: Upload Release Asset
+      #   id: upload-release-asset
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+      #     asset_path: ./my-artifact.zip
+      #     asset_name: my-artifact.zip
+      #     asset_content_type: application/zip
