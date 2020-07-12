@@ -16,8 +16,10 @@ jobs:
         uses: actions/checkout@v2
       - name: Go
         uses: actions/setup-go@v2
-      - name: Force install of statik
-        run: go get -u -v github.com/rakyll/statik
+        with:
+          go-version: "^1.14.4"
+      # - name: Force install of statik
+      #   run: go get -u -v github.com/rakyll/statik
       - name: Node
         uses: actions/setup-node@v1
       - name: Build
