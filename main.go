@@ -7,6 +7,8 @@ import (
 	"net/http"
 
 	"github.com/atomotic/annotorius-desktop/annotations"
+	_ "github.com/atomotic/annotorius-desktop/statik"
+	"github.com/rakyll/statik/fs"
 	"github.com/zserge/webview"
 )
 
@@ -22,8 +24,15 @@ func main() {
 		log.Fatal(err)
 	}
 	defer ln.Close()
+
+	statikFS, err := fs.New()
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	go func() {
-		fs := http.FileServer(http.Dir("./public"))
+		// fs := http.FileServer(http.Dir("./public"))
+		fs := http.FileServer(statikFS)
 		http.Handle("/", fs)
 
 		fmt.Println("annotorius-desktop running on: http://" + ln.Addr().String())
