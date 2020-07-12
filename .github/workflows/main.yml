@@ -24,6 +24,8 @@ jobs:
         uses: actions/setup-node@v1
       - name: Build
         run: ./build.sh
+      - name: create-dmg
+        run: brew install create-dmg
       # - name: Build project
       #   run: go build
       # - name: Create Release
