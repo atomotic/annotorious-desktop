@@ -1,4 +1,4 @@
+.DS_Store
 statik
 annotorius-desktop
-build
-.DS_Store
+build/macos/Annotorius.app/Contents/MacOS/Annotorius.app
