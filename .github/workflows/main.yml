@@ -24,8 +24,15 @@ jobs:
         uses: actions/setup-node@v1
       - name: Build
         run: ./build.sh
-      - name: create-dmg
+      - name: install create-dmg
         run: brew install create-dmg
+      - name: create dmg
+        run: create-dmg Annotorius.dmg build/macos/
+      - name: upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: Annotorius.dmg
+          path: ./Annotorius.dmg
       # - name: Build project
       #   run: go build
       # - name: Create Release

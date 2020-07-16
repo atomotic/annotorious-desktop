@@ -12,4 +12,4 @@ rm -fr node_modules
 cd ..
 statik -src=./public
 
-go build
+go build -o build/macos/Annotorius.app/Contents/MacOS/Annotorius.app
