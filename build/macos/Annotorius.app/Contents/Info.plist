@@ -3,14 +3,14 @@
 <plist version="1.0">
 	<dict>
 		<key>CFBundleExecutable</key>
-		<string>MacOS/Annotorius.app</string>
+		<string>MacOS/Annotorius</string>
 		<key>CFBundleIdentifier</key>
-		<string>com.atomotic.annotorius-desktop</string>
+		<string>com.atomotic.annotorius.desktop</string>
 		<key>CFBundleIconFile</key>
 		<string>icon.icns</string>
 		<key>NSHighResolutionCapable</key>
 		<string>True</string>
 		<key>LSMinimumSystemVersion</key>
-		<string>10.12</string>
+		<string>10.10</string>
 	</dict>
 </plist>
