@@ -39,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: Annotorius.app
-          path: ./build/macos/Annotorius.app
+          path: ./build/macos/
       # - name: Build project
       #   run: go build
       # - name: Create Release
