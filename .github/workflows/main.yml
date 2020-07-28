@@ -8,8 +8,8 @@ on: push
 name: build and release
 
 jobs:
-  build:
-    name: build and release
+  build-mac:
+    name: build macos
     runs-on: macos-latest
     steps:
       - name: Checkout
@@ -33,25 +33,28 @@ jobs:
         with:
           name: Annotorius.dmg
           path: ./Annotorius.dmg
-      # - name: Build project
-      #   run: go build
-      # - name: Create Release
-      #   id: create_release
-      #   uses: actions/create-release@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     tag_name: ${{ github.ref }}
-      #     release_name: Release ${{ github.ref }}
-      #     draft: false
-      #     prerelease: false
-      # - name: Upload Release Asset
-      #   id: upload-release-asset
-      #   uses: actions/upload-release-asset@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-      #     asset_path: ./my-artifact.zip
-      #     asset_name: my-artifact.zip
-      #     asset_content_type: application/zip
+  build-linux:
+    name: build linux
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: "^1.14.4"
+      - name: Force install of statik
+        run: go get -u -v github.com/rakyll/statik
+      - name: Node
+        uses: actions/setup-node@v1
+      - name: install webkit
+        run: sudo apt install libwebkit2gtk-4.0-dev
+      - name: Build
+        run: ./build-linux.sh
+      - name: Zip
+        run: zip -r Annotorius-linux.zip annotorius-desktop
+      - name: upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: Annotorius-linux.zip
+          path: ./Annotorius-linux.zip
