@@ -15,3 +15,4 @@ cd ..
 statik -src=./public
 
 go build -o build/macos/Annotorious.app/Contents/MacOS/Annotorious
+

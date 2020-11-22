@@ -9,6 +9,7 @@ cp node_modules/@recogito/annotorious-openseadragon/dist/openseadragon-annotorio
 cp node_modules/@recogito/annotorious-openseadragon/dist/openseadragon-annotorious.min.js.map js/
 cp node_modules/@recogito/annotorious-openseadragon/dist/annotorious.min.css css/
 cp node_modules/@recogito/annotorious-openseadragon/dist/annotorious.min.css.map css/
+
 rm -fr node_modules
 
 cd ..
