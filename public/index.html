@@ -3,10 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>annotorius.app</title>
+    <title>Annotorius Desktop</title>
+    <link rel="stylesheet" href="css/annotorious.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <script src="js/openseadragon.min.js"></script>
     <script src="js/openseadragon-annotorious.min.js"></script>
-    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div id="form">
@@ -22,7 +23,7 @@
     </div>
 
     <div id="browser"></div>
-    <div id="viewer" style="width: calc(100vw-20px); height: 80vh;"></div>
+    <div id="viewer" style="width: calc(100vw-20px); height: 80vh"></div>
     <script>
       var osd = OpenSeadragon({
         id: "viewer",
