@@ -6,10 +6,11 @@ import (
 	"net"
 	"net/http"
 
-	"github.com/atomotic/annotorius-desktop/annotations"
 	_ "github.com/atomotic/annotorius-desktop/statik"
+
+	"github.com/atomotic/annotorius-desktop/annotations"
 	"github.com/rakyll/statik/fs"
-	"github.com/zserge/webview"
+	"github.com/webview/webview"
 )
 
 func main() {
@@ -42,7 +43,7 @@ func main() {
 	debug := true
 	w := webview.New(debug)
 	defer w.Destroy()
-	w.SetTitle("EDL")
+	w.SetTitle("Annotorius Desktop")
 	w.SetSize(1000, 800, webview.HintNone)
 	w.Bind("save", api.Save)
 	w.Bind("get", api.Get)
