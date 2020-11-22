@@ -1,4 +1,4 @@
-module github.com/atomotic/annotorius-desktop
+module github.com/atomotic/annotorious-desktop
 
 go 1.15
 

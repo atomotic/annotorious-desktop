@@ -6,9 +6,9 @@ import (
 	"net"
 	"net/http"
 
-	_ "github.com/atomotic/annotorius-desktop/statik"
+	_ "github.com/atomotic/annotorious-desktop/statik"
 
-	"github.com/atomotic/annotorius-desktop/annotations"
+	"github.com/atomotic/annotorious-desktop/annotations"
 	"github.com/rakyll/statik/fs"
 	"github.com/webview/webview"
 )
@@ -36,14 +36,14 @@ func main() {
 		fs := http.FileServer(statikFS)
 		http.Handle("/", fs)
 
-		fmt.Println("annotorius-desktop running on: http://" + ln.Addr().String())
+		fmt.Println("annotorious-desktop running on: http://" + ln.Addr().String())
 		log.Fatal(http.Serve(ln, nil))
 	}()
 
 	debug := true
 	w := webview.New(debug)
 	defer w.Destroy()
-	w.SetTitle("Annotorius Desktop")
+	w.SetTitle("Annotorious Desktop")
 	w.SetSize(1000, 800, webview.HintNone)
 	w.Bind("save", api.Save)
 	w.Bind("get", api.Get)

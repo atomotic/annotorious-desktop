@@ -27,12 +27,12 @@ jobs:
       - name: install create-dmg
         run: brew install create-dmg
       - name: create dmg
-        run: create-dmg Annotorius.dmg build/macos/
+        run: create-dmg Annotorious.dmg build/macos/
       - name: upload artifact
         uses: actions/upload-artifact@v1
         with:
-          name: Annotorius.dmg
-          path: ./Annotorius.dmg
+          name: Annotorious.dmg
+          path: ./Annotorious.dmg
   build-linux:
     name: build linux
     runs-on: ubuntu-latest
@@ -51,8 +51,10 @@ jobs:
         run: sudo apt install libwebkit2gtk-4.0-dev
       - name: Build
         run: ./build-linux.sh
+      - name: Zip
+        run: zip -r Annotorious-linux.zip annotorious-desktop
       - name: upload artifact
         uses: actions/upload-artifact@v1
         with:
-          name: Annotorius-linux.zip
-          path: ./Annotorius-linux.zip
+          name: Annotorious-linux.zip
+          path: ./Annotorious-linux.zip

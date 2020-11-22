@@ -13,8 +13,8 @@ import (
 )
 
 var home, _ = homedir.Dir()
-var annotationsDirectory = filepath.Join(home, ".annotorius")
-var annotationsDB = filepath.Join(annotationsDirectory, "annotorius.db")
+var annotationsDirectory = filepath.Join(home, ".annotorious")
+var annotationsDB = filepath.Join(annotationsDirectory, "annotorious.db")
 
 type Api struct {
 	DB *sqlx.DB
