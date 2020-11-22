@@ -1,0 +1,60 @@
+on: push
+
+# on:
+#   push:
+#     tags:
+#       - "v*"
+
+name: build and release
+
+jobs:
+  build-mac:
+    name: build macos
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: "^1.14.4"
+      - name: Force install of statik
+        run: go get -u -v github.com/rakyll/statik
+      - name: Node
+        uses: actions/setup-node@v1
+      - name: Build
+        run: ./build.sh
+      - name: install create-dmg
+        run: brew install create-dmg
+      - name: create dmg
+        run: create-dmg Annotorious.dmg build/macos/
+      - name: upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: Annotorious.dmg
+          path: ./Annotorious.dmg
+  build-linux:
+    name: build linux
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: "^1.14.4"
+      - name: Force install of statik
+        run: go get -u -v github.com/rakyll/statik
+      - name: Node
+        uses: actions/setup-node@v1
+      - name: install webkit
+        run: sudo apt install libwebkit2gtk-4.0-dev
+      - name: Build
+        run: ./build-linux.sh
+      - name: Zip
+        run: zip -r Annotorious-linux.zip annotorious-desktop
+      - name: upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: Annotorious-linux.zip
+          path: ./Annotorious-linux.zip

@@ -1,0 +1,7 @@
+.DS_Store
+statik
+annotorious-desktop
+build/macos/Annotorious.app/Contents/MacOS/Annotorious
+public/js
+public/css
+public/images/*.png
