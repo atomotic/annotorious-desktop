@@ -2,6 +2,8 @@
 statik
 annotorious-desktop
 build/macos/Annotorious.app/Contents/MacOS/Annotorious
-public/js
-public/css
+public/js/*.js
+public/js/*.map
+public/css/*.css
+public/css/*.map
 public/images/*.png
