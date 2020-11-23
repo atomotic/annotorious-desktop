@@ -1,9 +1,7 @@
-on: push
-
-# on:
-#   push:
-#     tags:
-#       - "v*"
+on:
+  push:
+    tags:
+      - "v*"
 
 name: build and release
 
