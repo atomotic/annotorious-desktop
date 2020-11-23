@@ -6,8 +6,25 @@ on:
 name: build and release
 
 jobs:
+  create_release:
+    name: create release
+    runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
   build-mac:
     name: build macos
+    needs: create_release
     runs-on: macos-latest
     steps:
       - name: Checkout
@@ -31,18 +48,18 @@ jobs:
         with:
           name: Annotorious.dmg
           path: ./Annotorious.dmg
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
+      - name: Upload release assets
+        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_name: annotorious-macos.dmg
+          asset_path: ./Annotorious.dmg
+          asset_content_type: application/octet-stream
   build-linux:
     name: build linux
+    needs: create_release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -66,13 +83,12 @@ jobs:
         with:
           name: Annotorious-linux.zip
           path: ./Annotorious-linux.zip
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
+      - name: Upload release assets
+        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_name: annotorious-linux.zip
+          asset_path: ./Annotorious-linux.zip
+          asset_content_type: application/octet-stream
