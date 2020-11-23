@@ -3,7 +3,7 @@
 <plist version="1.0">
 	<dict>
 		<key>CFBundleExecutable</key>
-		<string>MacOS/Annotorious</string>
+		<string>Annotorious Desktop</string>
 		<key>CFBundleIdentifier</key>
 		<string>com.atomotic.annotorious.desktop</string>
 		<key>CFBundleIconFile</key>
