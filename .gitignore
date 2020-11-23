@@ -2,8 +2,7 @@
 statik/statik.go
 annotorious-desktop
 build/macos/Annotorious.app/Contents/MacOS/Annotorious
-public/js/*.js
-public/js/*.map
-public/css/*.css
-public/css/*.map
+public/js/*js
+public/js/*map
+public/css/annotorious*.*
 public/images/*.png
